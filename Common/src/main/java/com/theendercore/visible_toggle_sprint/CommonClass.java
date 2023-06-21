@@ -1,6 +1,6 @@
-package com.example.examplemod;
+package com.theendercore.visible_toggle_sprint;
 
-import com.example.examplemod.platform.Services;
+import com.theendercore.visible_toggle_sprint.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 
@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 // common compatible binaries. This means common code can not directly use loader specific concepts such as Forge events
 // however it will be compatible with all supported mod loaders.
 public class CommonClass {
+
 
     // The loader specific projects are able to import and use any code from the common project. This allows you to
     // write the majority of your code here and load it from your loader specific projects. This example has some
@@ -23,9 +24,9 @@ public class CommonClass {
         // your own abstraction layer. You can learn more about this in our provided services class. In this example
         // we have an interface in the common code and use a loader specific implementation to delegate our call to
         // the platform specific approach.
-        if (Services.PLATFORM.isModLoaded("examplemod")) {
+        if (Services.PLATFORM.isModLoaded("visible_toggle_sprint")) {
 
-            Constants.LOG.info("Hello to examplemod");
+            Constants.LOG.info("Hello to visible_toggle_sprint");
         }
     }
 }

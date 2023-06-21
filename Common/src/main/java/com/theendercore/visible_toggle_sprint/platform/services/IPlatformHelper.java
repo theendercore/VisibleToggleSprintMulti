@@ -1,4 +1,6 @@
-package com.example.examplemod.platform.services;
+package com.theendercore.visible_toggle_sprint.platform.services;
+
+import java.nio.file.Path;
 
 public interface IPlatformHelper {
 
@@ -33,4 +35,12 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    /**
+     * Checks if a mod with the given id is loaded.
+     *
+     * @param name The mod to check if it is loaded.
+     * @return True if the mod is loaded, false otherwise.
+     */
+    Path getConfigPath(String name);
 }

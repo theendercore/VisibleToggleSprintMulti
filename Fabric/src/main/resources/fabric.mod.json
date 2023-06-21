@@ -1,12 +1,11 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "visible_toggle_sprint",
     "version": "${version}",
-  
-    "name": "ModId",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "name": "VisibleToggleSprint",
+    "description": "A simple mod to make toggle sprint & sneak easier!",
     "authors": [
-      "Me!"
+      "TheEnderCore"
     ],
     "contact": {
       "homepage": "https://fabricmc.net/",
@@ -19,7 +18,7 @@
     "environment": "*",
     "entrypoints": {
       "main": [
-        "com.example.examplemod.ExampleMod"
+        "com.theendercore.visible_toggle_sprint.VisibleToggleSprint"
       ]
     },
     "mixins": [
@@ -29,8 +28,9 @@
     "depends": {
       "fabricloader": ">=0.14",
       "fabric": "*",
-      "minecraft": "1.19.3",
-      "java": ">=17"
+      "minecraft": "1.19.4",
+      "java": ">=17",
+      "yet_another_config_lib_v3": ">=3.0.0-"
     },
     "suggests": {
       "another-mod": "*"
