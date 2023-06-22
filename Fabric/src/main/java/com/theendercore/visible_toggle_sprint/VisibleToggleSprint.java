@@ -1,6 +1,7 @@
 package com.theendercore.visible_toggle_sprint;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class VisibleToggleSprint implements ModInitializer {
     
@@ -14,6 +15,7 @@ public class VisibleToggleSprint implements ModInitializer {
         // Use Fabric to bootstrap the Common mod.
         Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
+        HudRenderCallback.EVENT.register((poseStack, delta) -> HudRender.renderHud(poseStack));
 
 
     }

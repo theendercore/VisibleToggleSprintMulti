@@ -13,12 +13,15 @@
     },
   
     "license": "MIT",
-    "icon": "assets/modid/icon.png",
+    "icon": "assets/visible_toggle_sprint/icon.png",
   
     "environment": "*",
     "entrypoints": {
       "main": [
         "com.theendercore.visible_toggle_sprint.VisibleToggleSprint"
+      ],
+      "modmenu": [
+        "com.theendercore.visible_toggle_sprint.config.ModMenuCompat"
       ]
     },
     "mixins": [

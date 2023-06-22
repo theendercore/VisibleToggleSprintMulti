@@ -1,4 +1,4 @@
-package com.theendercore.visible_toggle_sprint;
+package com.theendercore.visible_toggle_sprint.config;
 
 import com.theendercore.visible_toggle_sprint.lib.*;
 import com.theendercore.visible_toggle_sprint.platform.Services;
@@ -167,7 +167,7 @@ public class VisibleToggleSprintConfig {
                 .build();
     }
 
-    private static Component genText(String first, String second) {
+    static Component genText(String first, String second) {
         return Component.translatable(first + MODID + second);
     }
 }

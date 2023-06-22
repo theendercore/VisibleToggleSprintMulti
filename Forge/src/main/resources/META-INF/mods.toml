@@ -5,7 +5,8 @@ license="MIT"
 modId="visible_toggle_sprint" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="VisibleToggleSprint" #mandatory
-logoFile="icon.png" #optional
+logoFile="assets/visible_toggle_sprint/icon.png" #optional
+logoBlur=false
 credits="" #optional
 authors="TheEnderCore" #optional
 # (#mandatory)
