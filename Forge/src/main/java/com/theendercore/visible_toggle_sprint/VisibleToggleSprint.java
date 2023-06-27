@@ -1,5 +1,6 @@
 package com.theendercore.visible_toggle_sprint;
 
+import com.theendercore.visible_toggle_sprint.common.HudRender;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

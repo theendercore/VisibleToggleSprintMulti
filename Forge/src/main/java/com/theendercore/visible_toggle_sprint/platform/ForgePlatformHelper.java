@@ -25,7 +25,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public Path getConfigPath(String name) {
-        return FMLPaths.CONFIGDIR.get().resolve(name);
+    public Path getConfigPath() {
+        return FMLPaths.CONFIGDIR.get();
     }
 }

@@ -17,5 +17,8 @@
   "visible_toggle_sprint.icons.default": "Default",
 
   "hud.visible_toggle_sprint.sprint": "Sprinting",
-  "hud.visible_toggle_sprint.sneak": "Sneaking"
+  "hud.visible_toggle_sprint.sneak": "Sneaking",
+
+  "key.visible_toggle_sprint.desc":"Open VTS config",
+  "key.visible_toggle_sprint.category":"Visible Toggle Sprint"
 }

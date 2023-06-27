@@ -35,12 +35,5 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
-
-    /**
-     * Checks if a mod with the given id is loaded.
-     *
-     * @param name The mod to check if it is loaded.
-     * @return True if the mod is loaded, false otherwise.
-     */
-    Path getConfigPath(String name);
+    Path getConfigPath();
 }
