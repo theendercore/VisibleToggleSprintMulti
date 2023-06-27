@@ -10,6 +10,6 @@ public class VisibleToggleSprint {
     public VisibleToggleSprint() {
         Constants.LOG.info("Hello Forge world!");
         CommonClass.init();
-        MinecraftForge.EVENT_BUS.addListener((RenderGuiEvent.Post event) -> HudRender.renderHud(event.getPoseStack()));
+        MinecraftForge.EVENT_BUS.addListener((RenderGuiEvent.Post event) -> HudRender.renderHud(event.getGuiGraphics()));
     }
 }

@@ -16,13 +16,13 @@ A simple mod to make toggle sprint & sneak easier!
 [[dependencies.visible_toggle_sprint]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[44,)" #mandatory
+    versionRange="[46,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.visible_toggle_sprint]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.visible_toggle_sprint]]

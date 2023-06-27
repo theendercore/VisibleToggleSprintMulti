@@ -15,7 +15,7 @@ public class VisibleToggleSprint implements ModInitializer {
     public void onInitialize() {
         Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
-        HudRenderCallback.EVENT.register((poseStack, delta) -> HudRender.renderHud(poseStack));
+        HudRenderCallback.EVENT.register((guiGraphics, delta) -> HudRender.renderHud(guiGraphics));
         ClientTickEvents.END_CLIENT_TICK.register(ConfigKeyMapping::keyMappingAction);
         KeyBindingHelper.registerKeyBinding(configButton);
     }
