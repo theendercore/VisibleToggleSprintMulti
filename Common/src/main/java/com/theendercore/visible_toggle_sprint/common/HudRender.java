@@ -27,9 +27,9 @@ public class HudRender {
         VisibleToggleSprintConfig config = getConfig();
 
         assert client.gameMode != null;
-        if (!options.renderDebug && !options.hideGui && options.getCameraType().isFirstPerson() && client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
+        if (!options.renderDebug && !options.hideGui && client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
             if (options.keySprint.isDown()) {
-                if (config.sprintCross) {
+                if (options.getCameraType().isFirstPerson() && config.sprintCross) {
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
                     guiGraphics.blit(MOD_ICONS, (scaledWidth) / 2 + config.sprintCrossLocationX, (scaledHeight) / 2 + config.sprintCrossLocationY, config.sprintCrossIcon.x, 0, 4, 4);
                     RenderSystem.defaultBlendFunc();
@@ -39,7 +39,7 @@ public class HudRender {
             }
 
             if (options.keyShift.isDown()) {
-                if (config.sneakCross) {
+                if (options.getCameraType().isFirstPerson() && config.sneakCross) {
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
                     guiGraphics.blit(MOD_ICONS, (scaledWidth) / 2 + config.sneakCrossLocationX, (scaledHeight) / 2 + config.sneakCrossLocationY, config.sneakCrossIcon.x, 4, 4, 4);
                     RenderSystem.defaultBlendFunc();
