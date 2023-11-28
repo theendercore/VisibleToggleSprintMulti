@@ -1,6 +1,9 @@
 package com.theendercore.visible_toggle_sprint.platform.services;
 
+import net.minecraft.client.gui.GuiGraphics;
+
 import java.nio.file.Path;
+import java.util.function.Consumer;
 
 public interface IPlatformHelper {
 
@@ -36,4 +39,10 @@ public interface IPlatformHelper {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
     Path getConfigPath();
+
+    /**
+     * Registers the HudRender function.
+     *
+     */
+    void register(Consumer<GuiGraphics> renderer);
 }

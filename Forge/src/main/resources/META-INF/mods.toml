@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[44,)" #mandatory T
+loaderVersion="[48,)" #mandatory T
 license="MIT"
 [[mods]] #mandatory
 modId="visible_toggle_sprint" #mandatory
@@ -16,15 +16,15 @@ A simple mod to make toggle sprint & sneak easier!
 [[dependencies.visible_toggle_sprint]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[46,)" #mandatory
+    versionRange="[48,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.visible_toggle_sprint]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20,1.21)"
+    versionRange="[1.20.2,1.21)"
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
 [[dependencies.visible_toggle_sprint]]
     modId = "yet_another_config_lib_v3"
     mandatory = true

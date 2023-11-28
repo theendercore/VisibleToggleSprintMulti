@@ -20,39 +20,43 @@ public class HudRender {
     public static void renderHud(GuiGraphics guiGraphics) {
         Minecraft client = Minecraft.getInstance();
         Options options = client.options;
-
-        int scaledWidth = guiGraphics.guiWidth();
-        int scaledHeight = guiGraphics.guiHeight();
-
         VisibleToggleSprintConfig config = getConfig();
 
-        assert client.gameMode != null;
-        if (!options.renderDebug && !options.hideGui && client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
+        int sWidth = guiGraphics.guiWidth();
+        int sHeight = guiGraphics.guiHeight();
+
+        boolean debug = !client.gui.getDebugOverlay().showDebugScreen();
+//        client.player.displayClientMessage(Component.literal("Debug Value : " + debug), true);
+
+        if (client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
             if (options.keySprint.isDown()) {
-                if (options.getCameraType().isFirstPerson() && config.sprintCross) {
+                if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && config.sprintCross) {
+                    RenderSystem.enableBlend();
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    guiGraphics.blit(MOD_ICONS, (scaledWidth) / 2 + config.sprintCrossLocationX, (scaledHeight) / 2 + config.sprintCrossLocationY, config.sprintCrossIcon.x, 0, 4, 4);
+                    guiGraphics.blit(MOD_ICONS, (sWidth) / 2 + config.sprintCrossLocationX, (sHeight) / 2 + config.sprintCrossLocationY, config.sprintCrossIcon.x, 0, 4, 4);
                     RenderSystem.defaultBlendFunc();
+                    RenderSystem.disableBlend();
                 }
                 if (config.sprintBar)
-                    guiGraphics.blit(MOD_ICONS, (scaledWidth / 2) + config.sprintBarLocationX, (scaledHeight) - config.sprintBarLocationY, 0, 16, 16, 16);
+                    guiGraphics.blit(MOD_ICONS, (sWidth / 2) + config.sprintBarLocationX, (sHeight) - config.sprintBarLocationY, 0, 16, 16, 16);
+                if (debug && config.sprintText)
+                    guiGraphics.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sprint"), config.sprintTextLocationX, config.sprintTextLocationY, config.sprintTextColor.getRGB(), true);
             }
 
             if (options.keyShift.isDown()) {
-                if (options.getCameraType().isFirstPerson() && config.sneakCross) {
+                if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && config.sneakCross) {
+                    RenderSystem.enableBlend();
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    guiGraphics.blit(MOD_ICONS, (scaledWidth) / 2 + config.sneakCrossLocationX, (scaledHeight) / 2 + config.sneakCrossLocationY, config.sneakCrossIcon.x, 4, 4, 4);
+                    guiGraphics.blit(MOD_ICONS, (sWidth) / 2 + config.sneakCrossLocationX, (sHeight) / 2 + config.sneakCrossLocationY, config.sneakCrossIcon.x, 4, 4, 4);
                     RenderSystem.defaultBlendFunc();
+                    RenderSystem.disableBlend();
                 }
                 if (config.sneakBar)
-                    guiGraphics.blit(MOD_ICONS, (scaledWidth / 2) + config.sneakBarLocationX, (scaledHeight) - config.sneakBarLocationY, 16, 16, 16, 16);
-                if (config.sneakText)
+                    guiGraphics.blit(MOD_ICONS, (sWidth / 2) + config.sneakBarLocationX, (sHeight) - config.sneakBarLocationY, 16, 16, 16, 16);
+                if (debug && config.sneakText)
                     guiGraphics.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sneak"), config.sneakTextLocationX, config.sneakTextLocationY, config.sneakTextColor.getRGB(), true);
             }
 
-            if (options.keySprint.isDown() && config.sprintText)
-                guiGraphics.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sprint"), config.sprintTextLocationX, config.sprintTextLocationY, config.sprintTextColor.getRGB(), true);
         }
-
     }
 }

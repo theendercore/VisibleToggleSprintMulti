@@ -6,6 +6,10 @@ plugins {
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
 
+
+repositories {
+    maven { url = "https://maven.terraformersmc.com/releases"}
+}
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
@@ -15,6 +19,7 @@ dependencies {
     implementation project(":Common")
 
     modImplementation "dev.isxander.yacl:yet-another-config-lib-fabric:${yacl}"
+    modImplementation "com.terraformersmc:modmenu:${modmenu}"
 }
 
 loom {

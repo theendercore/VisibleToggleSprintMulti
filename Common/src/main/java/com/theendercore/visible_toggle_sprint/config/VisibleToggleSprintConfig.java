@@ -24,7 +24,6 @@ import java.util.function.Supplier;
 import static com.theendercore.visible_toggle_sprint.Constants.*;
 
 public class VisibleToggleSprintConfig {
-
     public static final ConfigInstance<VisibleToggleSprintConfig> INSTANCE = GsonConfigInstance.createBuilder(VisibleToggleSprintConfig.class)
             .setPath(Services.PLATFORM.getConfigPath().resolve("visible_toggle_sprint.json"))
             .build();

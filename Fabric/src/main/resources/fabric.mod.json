@@ -14,7 +14,6 @@
   
     "license": "MIT",
     "icon": "assets/visible_toggle_sprint/icon.png",
-  
     "environment": "*",
     "entrypoints": {
       "main": [
