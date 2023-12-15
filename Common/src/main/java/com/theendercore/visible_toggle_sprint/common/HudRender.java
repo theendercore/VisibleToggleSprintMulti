@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
 
+
 import static com.theendercore.visible_toggle_sprint.CommonClass.getConfig;
 import static com.theendercore.visible_toggle_sprint.Constants.MODID;
 
@@ -17,46 +18,56 @@ public class HudRender {
     static final ResourceLocation MOD_ICONS = new ResourceLocation(MODID, "textures/gui/icons.png");
 
 
-    public static void renderHud(GuiGraphics guiGraphics) {
+    public static void renderHud(GuiGraphics gui) {
         Minecraft client = Minecraft.getInstance();
         Options options = client.options;
         VisibleToggleSprintConfig config = getConfig();
 
-        int sWidth = guiGraphics.guiWidth();
-        int sHeight = guiGraphics.guiHeight();
+        int sWidth = gui.guiWidth() / 2;
+        int sHeight = gui.guiHeight();
 
         boolean debug = !client.gui.getDebugOverlay().showDebugScreen();
-//        client.player.displayClientMessage(Component.literal("Debug Value : " + debug), true);
 
         if (client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
-            if (options.keySprint.isDown()) {
+            assert client.player != null;
+            client.player.displayClientMessage(Component.literal("Sprt : " + client.player.isSprinting() + ", Crch: " + client.player.isCrouching()), true);
+
+            if (shouldRender(config.sprintToggleIndicator, options.keySprint.isDown(), client.player.isSprinting())) {
                 if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && config.sprintCross) {
                     RenderSystem.enableBlend();
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    guiGraphics.blit(MOD_ICONS, (sWidth) / 2 + config.sprintCrossLocationX, (sHeight) / 2 + config.sprintCrossLocationY, config.sprintCrossIcon.x, 0, 4, 4);
+                    gui.blit(MOD_ICONS, sWidth + config.sprintCrossLocationX, (sHeight / 2) + config.sprintCrossLocationY, config.sprintCrossIcon.x, 0, 4, 4);
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.disableBlend();
                 }
                 if (config.sprintBar)
-                    guiGraphics.blit(MOD_ICONS, (sWidth / 2) + config.sprintBarLocationX, (sHeight) - config.sprintBarLocationY, 0, 16, 16, 16);
+                    gui.blit(MOD_ICONS, sWidth + config.sprintBarLocationX, (sHeight - config.sprintBarLocationY), 0, 16, 16, 16);
                 if (debug && config.sprintText)
-                    guiGraphics.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sprint"), config.sprintTextLocationX, config.sprintTextLocationY, config.sprintTextColor.getRGB(), true);
+                    gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sprint"), config.sprintTextLocationX, config.sprintTextLocationY, config.sprintTextColor.getRGB(), true);
             }
 
-            if (options.keyShift.isDown()) {
+            if (shouldRender(config.sneakToggleIndicator, options.keyShift.isDown(), client.player.isCrouching())) {
                 if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && config.sneakCross) {
                     RenderSystem.enableBlend();
                     RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    guiGraphics.blit(MOD_ICONS, (sWidth) / 2 + config.sneakCrossLocationX, (sHeight) / 2 + config.sneakCrossLocationY, config.sneakCrossIcon.x, 4, 4, 4);
+                    gui.blit(MOD_ICONS, sWidth + config.sneakCrossLocationX, (sHeight / 2) + config.sneakCrossLocationY, config.sneakCrossIcon.x, 4, 4, 4);
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.disableBlend();
                 }
                 if (config.sneakBar)
-                    guiGraphics.blit(MOD_ICONS, (sWidth / 2) + config.sneakBarLocationX, (sHeight) - config.sneakBarLocationY, 16, 16, 16, 16);
+                    gui.blit(MOD_ICONS, sWidth + config.sneakBarLocationX, (sHeight - config.sneakBarLocationY), 16, 16, 16, 16);
                 if (debug && config.sneakText)
-                    guiGraphics.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sneak"), config.sneakTextLocationX, config.sneakTextLocationY, config.sneakTextColor.getRGB(), true);
+                    gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sneak"), config.sneakTextLocationX, config.sneakTextLocationY, config.sneakTextColor.getRGB(), true);
             }
 
         }
+    }
+
+    public static boolean shouldRender(VisibleToggleSprintConfig.IndicatorType type, boolean keyDown, boolean isStateActive) {
+        return switch (type) {
+            case ON -> keyDown;
+            case OFF -> isStateActive;
+            case MIXED -> keyDown || isStateActive;
+        };
     }
 }

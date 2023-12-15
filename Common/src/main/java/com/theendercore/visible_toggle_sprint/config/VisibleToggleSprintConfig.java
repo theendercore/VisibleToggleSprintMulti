@@ -2,10 +2,7 @@ package com.theendercore.visible_toggle_sprint.config;
 
 import com.theendercore.visible_toggle_sprint.lib.*;
 import com.theendercore.visible_toggle_sprint.platform.Services;
-import dev.isxander.yacl3.api.ConfigCategory;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionGroup;
-import dev.isxander.yacl3.api.YetAnotherConfigLib;
+import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
@@ -23,11 +20,13 @@ import java.util.function.Supplier;
 
 import static com.theendercore.visible_toggle_sprint.Constants.*;
 
+@SuppressWarnings("deprecation")
 public class VisibleToggleSprintConfig {
     public static final ConfigInstance<VisibleToggleSprintConfig> INSTANCE = GsonConfigInstance.createBuilder(VisibleToggleSprintConfig.class)
             .setPath(Services.PLATFORM.getConfigPath().resolve("visible_toggle_sprint.json"))
             .build();
 
+    @SuppressWarnings("unused")
     @ConfigEntry
     public int version = CONFIG_VERSION;
 
@@ -58,6 +57,8 @@ public class VisibleToggleSprintConfig {
     public int sprintTextLocationY = 10;
     @ConfigEntry
     public Color sprintTextColor = Color.WHITE;
+    @ConfigEntry
+    public IndicatorType sprintToggleIndicator = IndicatorType.OFF;
 
     // --- Sneak ---
     @ConfigEntry
@@ -86,6 +87,9 @@ public class VisibleToggleSprintConfig {
     public int sneakTextLocationY = 30;
     @ConfigEntry
     public Color sneakTextColor = Color.WHITE;
+    @ConfigEntry
+    public IndicatorType sneakToggleIndicator = IndicatorType.OFF;
+
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> builder
@@ -114,6 +118,18 @@ public class VisibleToggleSprintConfig {
                                         .customController(ColorController::new)
                                         .build()
                         )).build())
+                        .options(List.of(Option.<IndicatorType>createBuilder()
+                                .name(genText(".indicator"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(genText(".indicator.desc.1"))
+                                        .text(genText(".indicator.desc.2"))
+                                        .text(genText(".indicator.desc.3"))
+                                        .text(genText(".indicator.desc.4"))
+                                        .build()
+                                )
+                                .binding(defaults.sprintToggleIndicator, () -> config.sprintToggleIndicator, value -> config.sprintToggleIndicator = value)
+                                .controller(opt -> EnumControllerBuilder.create(opt).enumClass(IndicatorType.class))
+                                .build()))
                         .build())
                 .category(ConfigCategory.createBuilder().name(genText(".sneak.tab"))
                         .group(genGroup("crosshair").options(List.of(
@@ -139,6 +155,11 @@ public class VisibleToggleSprintConfig {
                                         .customController(ColorController::new)
                                         .build()
                         )).build())
+                        .options(List.of(Option.<IndicatorType>createBuilder()
+                                .name(genText(".indicator"))
+                                .binding(defaults.sneakToggleIndicator, () -> config.sneakToggleIndicator, value -> config.sneakToggleIndicator = value)
+                                .controller(opt -> EnumControllerBuilder.create(opt).enumClass(IndicatorType.class))
+                                .build()))
                         .build())
         ).generateScreen(parent);
     }
@@ -171,6 +192,15 @@ public class VisibleToggleSprintConfig {
                 .build();
     }
 
+    public enum IndicatorType implements NameableEnum {
+        ON,
+        OFF,
+        MIXED;
+        @Override
+        public Component getDisplayName() {
+            return genText(".indicators." + name().toLowerCase());
+        }
+    }
     static Component genText(String second) {
         return Component.translatable("config." + MODID + second);
     }

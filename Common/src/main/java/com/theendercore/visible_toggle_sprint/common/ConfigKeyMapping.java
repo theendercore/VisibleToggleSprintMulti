@@ -7,8 +7,7 @@ import static com.theendercore.visible_toggle_sprint.CommonClass.configButton;
 
 public class ConfigKeyMapping {
     public static void keyMappingAction(Minecraft client) {
-        if (configButton.isDown() && client.screen == null) {
+        if (configButton.isDown() && client.screen == null)
             client.setScreen(VisibleToggleSprintConfig.makeScreen(null));
-        }
     }
 }

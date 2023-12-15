@@ -34,7 +34,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void register(Consumer<GuiGraphics> renderer) {
+    public void renderHud(Consumer<GuiGraphics> renderer) {
         MinecraftForge.EVENT_BUS.addListener((RenderGuiEvent.Post e) -> renderer.accept(e.getGuiGraphics()));
     }
 }

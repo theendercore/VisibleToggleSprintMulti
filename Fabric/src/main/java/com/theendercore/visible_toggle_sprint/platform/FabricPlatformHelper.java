@@ -31,7 +31,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void register(Consumer<GuiGraphics> renderer) {
+    public void renderHud(Consumer<GuiGraphics> renderer) {
         HudRenderCallback.EVENT.register((c, d) -> renderer.accept(c));
     }
 }

@@ -14,7 +14,7 @@ public class CommonClass {
     public static void init() {
         VisibleToggleSprintConfig.INSTANCE.load();
         if (Services.PLATFORM.isModLoaded("visible_toggle_sprint")) LOG.info("I am my planting roots.");
-        Services.PLATFORM.register(HudRender::renderHud);
+        Services.PLATFORM.renderHud(HudRender::renderHud);
     }
 
     public static VisibleToggleSprintConfig getConfig() {

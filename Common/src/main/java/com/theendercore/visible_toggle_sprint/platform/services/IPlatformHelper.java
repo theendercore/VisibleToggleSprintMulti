@@ -44,5 +44,5 @@ public interface IPlatformHelper {
      * Registers the HudRender function.
      *
      */
-    void register(Consumer<GuiGraphics> renderer);
+    void renderHud(Consumer<GuiGraphics> renderer);
 }
