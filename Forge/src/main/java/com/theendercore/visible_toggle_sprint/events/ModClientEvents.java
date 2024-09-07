@@ -1,6 +1,7 @@
 package com.theendercore.visible_toggle_sprint.events;
 
 
+import com.theendercore.visible_toggle_sprint.CommonClass;
 import com.theendercore.visible_toggle_sprint.Constants;
 import com.theendercore.visible_toggle_sprint.common.ConfigKeyMapping;
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ public class ModClientEvents {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerKeymappingActions(ClientTickEvent event) {
-        if (event.phase == Phase.END) ConfigKeyMapping.keyMappingAction(Minecraft.getInstance());
+        if (event.phase == Phase.END) CommonClass.handleKeyBinds(Minecraft.getInstance());
     }
 
 }

@@ -12,7 +12,7 @@ public class VisibleToggleSprint implements ModInitializer {
     @Override
     public void onInitialize() {
         CommonClass.init();
-        ClientTickEvents.END_CLIENT_TICK.register(ConfigKeyMapping::keyMappingAction);
+        ClientTickEvents.END_CLIENT_TICK.register(CommonClass::handleKeyBinds);
         KeyBindingHelper.registerKeyBinding(configButton);
     }
 }
