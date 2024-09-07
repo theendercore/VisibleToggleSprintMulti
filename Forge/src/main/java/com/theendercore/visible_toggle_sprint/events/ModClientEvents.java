@@ -3,7 +3,6 @@ package com.theendercore.visible_toggle_sprint.events;
 
 import com.theendercore.visible_toggle_sprint.CommonClass;
 import com.theendercore.visible_toggle_sprint.Constants;
-import com.theendercore.visible_toggle_sprint.common.ConfigKeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
