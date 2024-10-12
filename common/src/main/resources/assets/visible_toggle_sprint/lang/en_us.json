@@ -1,30 +1,6 @@
 {
-  "config.visible_toggle_sprint.title" : "Visual Toggle Sprint",
-
-  "config.visible_toggle_sprint.sprint.tab" : "Sprint",
-  "config.visible_toggle_sprint.sneak.tab" : "Sneak",
-
-  "config.visible_toggle_sprint.group.crosshair" : "Crosshair",
-  "config.visible_toggle_sprint.group.hotbar" : "Hotbar",
-  "config.visible_toggle_sprint.group.text" : "Text",
-
-  "config.visible_toggle_sprint.enable" : "Enable",
-  "config.visible_toggle_sprint.location.x" : "X Location",
-  "config.visible_toggle_sprint.location.y" : "Y Location",
-  "config.visible_toggle_sprint.icon" : "Icon",
-  "config.visible_toggle_sprint.color" : "Color",
-
-  "config.visible_toggle_sprint.indicator" : "Indicator type",
-  "config.visible_toggle_sprint.indicator.desc.1" : "This value determines when the indicator is show",
-  "config.visible_toggle_sprint.indicator.desc.2" : "\u00A76\u00A7u\u00A7lConstant\u00A7r - Shows the indicator when the action is happening",
-  "config.visible_toggle_sprint.indicator.desc.3" : "\u00A76\u00A7u\u00A7lToggle\u00A7r - Shows the indicator when the action is toggled on",
-  "config.visible_toggle_sprint.indicator.desc.4" : "\u00A76\u00A7u\u00A7lMixed\u00A7r - A mix of the both, thus showing the indicator more",
-
-  "config.visible_toggle_sprint.indicators.off" : "Constant",
-  "config.visible_toggle_sprint.indicators.on" : "Toggle",
-  "config.visible_toggle_sprint.indicators.mixed" : "Mixed",
-
-  "visible_toggle_sprint.icons.default" : "Default",
+  "visible_toggle_sprint.visible_toggle_sprint.sprint.indicator.desc" : "\u00A76\u00A7u\u00A7lState Only\u00A7r - Shows the indicator when you are in the sprinting state\n\u00A76\u00A7u\u00A7lKey Only\u00A7r - Shows the indicator when you pressing the sprint key (Or it's toggled on)\n\u00A76\u00A7u\u00A7lCombined\u00A7r - Shows the indicator when you pressing the key or are in the sprinting state",
+  "visible_toggle_sprint.visible_toggle_sprint.sneak.indicator.desc" : "\u00A76\u00A7u\u00A7lState Only\u00A7r - Shows the indicator when you are in the sneaking state\n\u00A76\u00A7u\u00A7lKey Only\u00A7r - Shows the indicator when you pressing the sneak key (Or it's toggled on)\n\u00A76\u00A7u\u00A7lCombined\u00A7r - Shows the indicator when you pressing the key or are in the sneaking state",
 
   "hud.visible_toggle_sprint.sprint" : "Sprinting",
   "hud.visible_toggle_sprint.sneak" : "Sneaking",

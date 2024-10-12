@@ -66,9 +66,9 @@ public class HudRender {
 
     public static boolean shouldRender(VisibleToggleSprintConfig.PlayerState.IndicatorType type, boolean keyDown, boolean isStateActive) {
         return switch (type) {
-            case KEY_PRESSED_ONLY -> keyDown;
+            case KEY_ONLY -> keyDown;
             case STATE_ONLY -> isStateActive;
-            case BOTH -> keyDown || isStateActive;
+            case COMBINED -> keyDown || isStateActive;
         };
     }
 }

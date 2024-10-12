@@ -84,6 +84,6 @@ public class VisibleToggleSprintConfig extends Config {
             }
         }
 
-        public enum IndicatorType {KEY_PRESSED_ONLY, STATE_ONLY, BOTH}
+        public enum IndicatorType {KEY_ONLY, STATE_ONLY, COMBINED}
     }
 }
