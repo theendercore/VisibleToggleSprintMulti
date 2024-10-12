@@ -1,48 +1,17 @@
 package com.theendercore.visible_toggle_sprint.platform.services;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
 import java.nio.file.Path;
 import java.util.function.Consumer;
 
 public interface IPlatformHelper {
-
-    /**
-     * Gets the name of the current platform
-     *
-     * @return The name of the current platform.
-     */
     String getPlatformName();
-
-    /**
-     * Checks if a mod with the given id is loaded.
-     *
-     * @param modId The mod to check if it is loaded.
-     * @return True if the mod is loaded, false otherwise.
-     */
     boolean isModLoaded(String modId);
-
-    /**
-     * Check if the game is currently in a development environment.
-     *
-     * @return True if in a development environment, false otherwise.
-     */
     boolean isDevelopmentEnvironment();
-
-    /**
-     * Gets the name of the environment type as a string.
-     *
-     * @return The name of the environment type.
-     */
-    default String getEnvironmentName() {
-
-        return isDevelopmentEnvironment() ? "development" : "production";
-    }
-    Path getConfigPath();
-
-    /**
-     * Registers the HudRender function.
-     *
-     */
     void renderHud(Consumer<GuiGraphics> renderer);
+    void registerKeyBinding(KeyMapping keyBinding, Consumer<Minecraft> action);
 }

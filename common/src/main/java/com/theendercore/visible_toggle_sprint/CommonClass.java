@@ -19,6 +19,7 @@ public class CommonClass {
     public static void init() {
         if (Services.PLATFORM.isModLoaded("visible_toggle_sprint")) LOG.info("I am my planting roots.");
         Services.PLATFORM.renderHud(HudRender::renderHud);
+        Services.PLATFORM.registerKeyBinding(configButton, CommonClass::handleKeyBinds);
     }
 
     public static void handleKeyBinds(Minecraft client) {
