@@ -4,13 +4,11 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}"
+    version = "${version}-${project.name}"
 }
-
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    withSourcesJar()
-//    withJavadocJar()
 }
 
 repositories {
@@ -46,22 +44,17 @@ repositories {
 
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-['apiElements', 'runtimeElements', 'sourcesElements' ].each { variant ->
+['apiElements', 'runtimeElements'].each { variant ->
     configurations."$variant".outgoing {
-        capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
-        capability("$group:$mod_id:$version")
+        capability("$group:${base.archivesName.get()}:$version-${project.name}")
+        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version-${project.name}")
+        capability("$group:$mod_id:$version-${project.name}")
     }
     publishing.publications.configureEach {
         suppressPomMetadataWarningsFor(variant)
     }
 }
 
-sourcesJar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
-    }
-}
 
 jar {
     from(rootProject.file('LICENSE')) {
@@ -96,8 +89,8 @@ processResources {
             'description'                  : project.description,
             'neoforge_version'             : neoforge_version,
             'neoforge_loader_version_range': neoforge_loader_version_range,
-            "forge_version"                : forge_version,
-            "forge_loader_version_range"   : forge_loader_version_range,
+//            "forge_version"                : forge_version,
+//            "forge_loader_version_range"   : forge_loader_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version,
             'fzzy_config'                  : fzzy_config
@@ -112,7 +105,7 @@ processResources {
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
+            artifactId base.archivesName.get() + '-' + project.name
             from components.java
         }
     }

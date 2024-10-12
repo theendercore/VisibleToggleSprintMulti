@@ -39,11 +39,7 @@ neoForge {
             server()
         }
     }
-    mods {
-        "${mod_id}" {
-            sourceSet sourceSets.main
-        }
-    }
+    mods { "${mod_id}" { sourceSet sourceSets.main } }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
