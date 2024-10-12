@@ -9,11 +9,11 @@ import java.awt.*;
 
 import static com.theendercore.visible_toggle_sprint.Constants.MODID;
 import static com.theendercore.visible_toggle_sprint.Constants.id;
-import static com.theendercore.visible_toggle_sprint.config.VTSConfig.PlayerState.CrosshairData.CrosshairIcons.STYLISED;
-import static com.theendercore.visible_toggle_sprint.config.VTSConfig.PlayerState.IndicatorType;
+import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.CrosshairData.CrosshairIcons.STYLISED;
+import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.IndicatorType;
 
 
-public class VTSConfig extends Config {
+public class VisibleToggleSprintConfig extends Config {
     public PlayerState sprint = new PlayerState(
             new PlayerState.CrosshairData(true, -6, -6, STYLISED),
             new PlayerState.DisplayData(false, 125, 18),
@@ -28,7 +28,7 @@ public class VTSConfig extends Config {
             IndicatorType.STATE_ONLY
     );
 
-    public VTSConfig() {
+    public VisibleToggleSprintConfig() {
         super(id(MODID));
     }
 

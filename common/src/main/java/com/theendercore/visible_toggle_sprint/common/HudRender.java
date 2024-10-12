@@ -2,7 +2,7 @@ package com.theendercore.visible_toggle_sprint.common;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.theendercore.visible_toggle_sprint.config.VTSConfig;
+import com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig;
 import com.theendercore.visible_toggle_sprint.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -64,7 +64,7 @@ public class HudRender {
         }
     }
 
-    public static boolean shouldRender(VTSConfig.PlayerState.IndicatorType type, boolean keyDown, boolean isStateActive) {
+    public static boolean shouldRender(VisibleToggleSprintConfig.PlayerState.IndicatorType type, boolean keyDown, boolean isStateActive) {
         return switch (type) {
             case KEY_PRESSED_ONLY -> keyDown;
             case STATE_ONLY -> isStateActive;
