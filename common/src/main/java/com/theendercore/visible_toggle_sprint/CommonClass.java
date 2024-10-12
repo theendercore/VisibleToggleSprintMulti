@@ -10,6 +10,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
 import static com.theendercore.visible_toggle_sprint.Constants.LOG;
+import static com.theendercore.visible_toggle_sprint.Constants.MODID;
 
 public class CommonClass {
     public static final KeyMapping configButton = new KeyMapping("key.visible_toggle_sprint.desc", InputConstants.UNKNOWN.getValue(), "key.visible_toggle_sprint.category");
@@ -21,7 +22,6 @@ public class CommonClass {
     }
 
     public static void handleKeyBinds(Minecraft client) {
-        if (configButton.isDown() && client.screen == null) return;
-//            client.setScreen(VisibleToggleSprintConfigOld.makeScreen(null));
+        if (configButton.isDown() && client.screen == null) ConfigApiJava.INSTANCE.openScreen(MODID + "." + MODID);
     }
 }
