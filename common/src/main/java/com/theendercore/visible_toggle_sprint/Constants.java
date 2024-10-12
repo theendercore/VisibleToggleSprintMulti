@@ -1,13 +1,15 @@
 package com.theendercore.visible_toggle_sprint;
 
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Constants {
+public interface Constants {
+	String MODID = "visible_toggle_sprint";
+	String MOD_NAME = "VisibleToggleSprint";
+	Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
-	public static final String MODID = "visible_toggle_sprint";
-	public static final String MOD_NAME = "VisibleToggleSprint";
-	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-	public static final int CONFIG_VERSION = 4;
-
+	static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	}
 }

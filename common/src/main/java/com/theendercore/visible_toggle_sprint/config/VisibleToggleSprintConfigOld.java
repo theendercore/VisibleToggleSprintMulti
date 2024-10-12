@@ -3,14 +3,14 @@ package com.theendercore.visible_toggle_sprint.config;
 import com.theendercore.visible_toggle_sprint.Constants;
 import com.theendercore.visible_toggle_sprint.lib.*;
 import com.theendercore.visible_toggle_sprint.platform.Services;
-import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
-import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
-import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
-import dev.isxander.yacl3.config.ConfigEntry;
-import dev.isxander.yacl3.config.ConfigInstance;
-import dev.isxander.yacl3.config.GsonConfigInstance;
-import dev.isxander.yacl3.gui.controllers.ColorController;
+//import dev.isxander.yacl3.api.*;
+//import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
+//import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
+//import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+//import dev.isxander.yacl3.config.ConfigEntry;
+//import dev.isxander.yacl3.config.ConfigInstance;
+//import dev.isxander.yacl3.config.GsonConfigInstance;
+//import dev.isxander.yacl3.gui.controllers.ColorController;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class VisibleToggleSprintConfig {
-    public static final ConfigInstance<VisibleToggleSprintConfig> INSTANCE = GsonConfigInstance.createBuilder(VisibleToggleSprintConfig.class)
+public class VisibleToggleSprintConfigOld {
+   /* public static final ConfigInstance<VisibleToggleSprintConfigOld> INSTANCE = GsonConfigInstance.createBuilder(VisibleToggleSprintConfigOld.class)
             .setPath(Services.PLATFORM.getConfigPath().resolve("visible_toggle_sprint.json"))
             .build();
 
@@ -202,5 +202,5 @@ public class VisibleToggleSprintConfig {
     }
     static Component genText(String second) {
         return Component.translatable("config." + Constants.MODID + second);
-    }
+    }*/
 }

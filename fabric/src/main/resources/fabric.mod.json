@@ -12,25 +12,26 @@
         "sources": "https://github.com/FabricMC/fabric-example-mod"
     },
     "license": "${license}",
-    "icon": "${mod_id}.png",
+    "icon": "assets/${mod_id}/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
             "com.theendercore.visible_toggle_sprint.VisibleToggleSprint"
         ]
     },
-    "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
-    ],
+    "mixins": [],
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": "*",
         "minecraft": "*",
-        "java": ">=${java_version}"
+        "java": ">=${java_version}",
+        "fzzy_config": ">=${fzzy_config}"
     },
-    "suggests": {
-        "another-mod": "*"
+
+    "custom": {
+        "fzzy_config": [
+            "${mod_id}"
+        ]
     }
 }
   
