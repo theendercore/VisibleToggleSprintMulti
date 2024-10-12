@@ -1,6 +1,5 @@
 package com.theendercore.visible_toggle_sprint.platform;
 
-import com.theendercore.visible_toggle_sprint.CommonClass;
 import com.theendercore.visible_toggle_sprint.platform.services.IPlatformHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -11,8 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
 import java.util.function.Consumer;
-
-import static com.theendercore.visible_toggle_sprint.CommonClass.configButton;
 
 public class FabricPlatformHelper implements IPlatformHelper {
     @Override
