@@ -46,9 +46,9 @@ repositories {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements'].each { variant ->
     configurations."$variant".outgoing {
-        capability("$group:${base.archivesName.get()}:$version-${project.name}")
-        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version-${project.name}")
-        capability("$group:$mod_id:$version-${project.name}")
+        capability("$group:${base.archivesName.get()}:$version")
+        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
+        capability("$group:$mod_id:$version")
     }
     publishing.publications.configureEach {
         suppressPomMetadataWarningsFor(variant)
@@ -65,9 +65,9 @@ jar {
         attributes([
                 'Specification-Title'   : mod_name,
                 'Specification-Vendor'  : mod_author,
-                'Specification-Version' : project.jar.archiveVersion,
+                'Specification-Version' : version.toString().split('-')[0],
                 'Implementation-Title'  : project.name,
-                'Implementation-Version': project.jar.archiveVersion,
+                'Implementation-Version': version.toString().split('-')[0],
                 'Implementation-Vendor' : mod_author,
                 'Built-On-Minecraft'    : minecraft_version
         ])
@@ -76,7 +76,7 @@ jar {
 
 processResources {
     var expandProps = [
-            'version'                      : version,
+            'version'                      : version.toString().split('-')[0],
             'group'                        : project.group, //Else we target the task's group.
             'minecraft_version'            : minecraft_version,
             'minecraft_version_range'      : minecraft_version_range,
