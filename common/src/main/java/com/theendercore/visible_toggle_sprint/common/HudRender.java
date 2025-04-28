@@ -11,64 +11,55 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
 
-import static com.theendercore.visible_toggle_sprint.CommonClass.CONFIG;
-import static com.theendercore.visible_toggle_sprint.Constants.MODID;
+import static com.theendercore.visible_toggle_sprint.VTSCommon.CONFIG;
+import static com.theendercore.visible_toggle_sprint.VTSConst.id;
 
 public class HudRender {
-    static final ResourceLocation MOD_ICONS = ResourceLocation.fromNamespaceAndPath(MODID, "textures/gui/icons.png");
-
+    static final ResourceLocation MOD_ICONS = id("textures/gui/icons.png");
 
     public static void renderHud(GuiGraphics gui) {
         Minecraft client = Minecraft.getInstance();
+        if (client.player == null) return;
         Options options = client.options;
 
         int sWidth = gui.guiWidth() / 2;
         int sHeight = gui.guiHeight();
 
         boolean debug = !client.gui.getDebugOverlay().showDebugScreen();
-        if (client.player == null) return;
 
         if (Services.PLATFORM.isDevelopmentEnvironment())
             client.player.displayClientMessage(Component.literal("Sprint : " + client.player.isSprinting() + ", Sneak: " + client.player.isCrouching()), true);
 
-        if (client.gameMode.getPlayerMode() != GameType.SPECTATOR) {
+        if (client.gameMode != null && client.gameMode.getPlayerMode() == GameType.SPECTATOR) return;
 
-            if (shouldRender(CONFIG.sprint.indicator, options.keySprint.isDown(), client.player.isSprinting())) {
-                if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && CONFIG.sprint.crosshair.enable) {
-                    RenderSystem.enableBlend();
-                    RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    gui.blit(MOD_ICONS, sWidth + CONFIG.sprint.crosshair.x, (sHeight / 2) + CONFIG.sprint.crosshair.y, CONFIG.sprint.crosshair.icon.x, 0, 4, 4);
-                    RenderSystem.defaultBlendFunc();
-                    RenderSystem.disableBlend();
-                }
-                if (CONFIG.sprint.hotbar.enable)
-                    gui.blit(MOD_ICONS, sWidth + CONFIG.sprint.hotbar.x, (sHeight - CONFIG.sprint.hotbar.y), 0, 16, 16, 16);
-                if (debug && CONFIG.sprint.text.enable)
-                    gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sprint"), CONFIG.sprint.text.x, CONFIG.sprint.text.y, CONFIG.sprint.text.color.toInt(), true);
-            }
-
-            if (shouldRender(CONFIG.sneak.indicator, options.keyShift.isDown(), client.player.isCrouching())) {
-                if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && CONFIG.sneak.crosshair.enable) {
-                    RenderSystem.enableBlend();
-                    RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                    gui.blit(MOD_ICONS, sWidth + CONFIG.sneak.crosshair.x, (sHeight / 2) + CONFIG.sneak.crosshair.y, CONFIG.sneak.crosshair.icon.x, 4, 4, 4);
-                    RenderSystem.defaultBlendFunc();
-                    RenderSystem.disableBlend();
-                }
-                if (CONFIG.sneak.hotbar.enable)
-                    gui.blit(MOD_ICONS, sWidth + CONFIG.sneak.hotbar.x, (sHeight - CONFIG.sneak.hotbar.y), 16, 16, 16, 16);
-                if (debug && CONFIG.sneak.text.enable)
-                    gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint.sneak"), CONFIG.sneak.text.x, CONFIG.sneak.text.y, CONFIG.sneak.text.color.toInt(), true);
-            }
-
+        if (shouldRender(CONFIG.sprint, options.keySprint.isDown(), client.player.isSprinting())) {
+            renderIndicator(CONFIG.sprint, debug, client, options, gui, sWidth, sHeight, "sprint");
+        }
+        if (shouldRender(CONFIG.sneak, options.keyShift.isDown(), client.player.isCrouching())) {
+            renderIndicator(CONFIG.sneak, debug, client, options, gui, sWidth, sHeight, "sneak");
         }
     }
 
-    public static boolean shouldRender(VisibleToggleSprintConfig.PlayerState.IndicatorType type, boolean keyDown, boolean isStateActive) {
-        return switch (type) {
+    public static boolean shouldRender(VisibleToggleSprintConfig.PlayerState state, boolean keyDown, boolean isStateActive) {
+        return switch (state.indicator) {
             case KEY_ONLY -> keyDown;
             case STATE_ONLY -> isStateActive;
             case COMBINED -> keyDown || isStateActive;
         };
+    }
+
+    public static void renderIndicator(VisibleToggleSprintConfig.PlayerState state, boolean debug, Minecraft client, Options options, GuiGraphics gui, int sWidth, int sHeight, String langKey) {
+        assert client.player != null;
+        if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshair.enable) {
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            gui.blit(MOD_ICONS, sWidth + state.crosshair.x, (sHeight / 2) + state.crosshair.y, state.crosshair.icon.x, 0, 4, 4);
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.disableBlend();
+        }
+        if (state.hotbar.enable)
+            gui.blit(MOD_ICONS, sWidth + state.hotbar.x, (sHeight - state.hotbar.y), 0, 16, 16, 16);
+        if (debug && state.text.enable)
+            gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint." + langKey), state.text.x, state.text.y, state.text.color.toInt(), true);
     }
 }
