@@ -15,7 +15,7 @@
     "icon": "assets/${mod_id}/icon.png",
     "environment": "*",
     "entrypoints": {
-        "main": [
+        "client": [
             "com.theendercore.visible_toggle_sprint.VisibleToggleSprint"
         ]
     },
@@ -26,12 +26,6 @@
         "minecraft": "*",
         "java": ">=${java_version}",
         "fzzy_config": ">=${fzzy_config}"
-    },
-
-    "custom": {
-        "fzzy_config": [
-            "${mod_id}"
-        ]
     }
 }
   

@@ -1,11 +1,11 @@
 package com.theendercore.visible_toggle_sprint;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
-public class VisibleToggleSprint implements ModInitializer {
+public class VisibleToggleSprint implements ClientModInitializer {
 
     @Override
-    public void onInitialize() {
-        CommonClass.init();
+    public void onInitializeClient() {
+        VTSCommon.init();
     }
 }
