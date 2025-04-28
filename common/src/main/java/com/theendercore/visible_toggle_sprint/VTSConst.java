@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 public interface VTSConst {
     String MODID = "visible_toggle_sprint";
     String NAME = "VisibleToggleSprint";
+    ResourceLocation LAYER_ID = id("crosshair");
     Logger log = LoggerFactory.getLogger(NAME);
 
     static ResourceLocation id(String path) {

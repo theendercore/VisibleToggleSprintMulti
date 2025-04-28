@@ -1,12 +1,11 @@
 package com.theendercore.visible_toggle_sprint.common;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 import com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
@@ -51,23 +50,19 @@ public class HudRender {
         assert client.player != null;
         if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshairEnable) {
             gui.pose().pushPose();
-            RenderSystem.enableBlend();
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             // set the position
             gui.pose().translate((float) ((width - 4 + state.crosshairX) / 2), (float) ((height - 4 + state.crosshairY) / 2), 0f);
             if (state.rotation.get() != 0) { // get the right rotation
                 gui.pose().rotateAround(Axis.ZN.rotationDegrees(state.rotation.get()), 2, 2, 0);
             }
             // render icon
-            gui.blitSprite(hud(state.crosshairIcon.get().toLowerCase()),
+            gui.blitSprite(RenderType::crosshair, hud(state.crosshairIcon.get().toLowerCase()),
                     4, 4, 0, 0,
                     0, 0, 4, 4);
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.disableBlend();
             gui.pose().popPose();
         }
         if (state.hotbarEnable) {
-            gui.blitSprite(id("hud/" + type),
+            gui.blit(RenderType::guiTextured, id("hud/" + type),
                     16, 16, 0, 0,
                     (width / 2) + state.hotbarX, (height - state.hotbarY), 16, 16);
         }

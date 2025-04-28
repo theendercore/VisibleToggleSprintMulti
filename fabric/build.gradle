@@ -24,7 +24,7 @@ dependencies {
 
     modImplementation "me.fzzyhmstrs:fzzy_config:${fzzy_config}"
 
-    modImplementation("com.terraformersmc:modmenu:${"11.0.2"}")
+    modImplementation("com.terraformersmc:modmenu:${"13.0.3"}")
 }
 
 loom {

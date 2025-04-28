@@ -10,5 +10,8 @@ subprojects {
             name = "FzzyMaven"
             url = "https://maven.fzzyhmstrs.me/"
         }
+        maven {
+            url 'https://libraries.minecraft.net/'
+        }
     }
 }
