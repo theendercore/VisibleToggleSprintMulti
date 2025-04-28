@@ -5,6 +5,9 @@ import me.fzzyhmstrs.fzzy_config.config.ConfigGroup;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedEnum;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedFloat;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedNumber;
+import net.minecraft.resources.ResourceLocation;
 
 import java.awt.*;
 
@@ -18,11 +21,11 @@ public class VisibleToggleSprintConfig extends Config {
     }
 
     public PlayerState sprint = new PlayerState();
-    public PlayerState sneak = new PlayerState(true, 1, 1, CrosshairIcons.STYLISED, 147, 18, 10, 30, Color.WHITE);
+    public PlayerState sneak = new PlayerState(true, 7, 7, CrosshairIcons.SNEAK, 147, 18, 10, 30, Color.WHITE);
 
     public static class PlayerState extends ConfigSection {
         public PlayerState() {
-            this(true, -6, -6, CrosshairIcons.STYLISED, 125, 18, 10, 10, Color.WHITE);
+            this(true, -7, -7, CrosshairIcons.SPRINT, 125, 18, 10, 10, Color.WHITE);
         }
 
         public PlayerState(boolean cross, int crossX, int crossY, CrosshairIcons icon, int barX, int barY, int txtX, int txtY, Color color) {
@@ -30,7 +33,7 @@ public class VisibleToggleSprintConfig extends Config {
             crosshairEnable = cross;
             crosshairX = crossX;
             crosshairY = crossY;
-            crosshairIcon = new ValidatedEnum<>(icon, ValidatedEnum.WidgetType.CYCLING);
+            crosshairIcon = new ValidatedEnum<>(icon, ValidatedEnum.WidgetType.POPUP);
             hotbarX = barX;
             hotbarY = barY;
             textX = txtX;
@@ -46,6 +49,7 @@ public class VisibleToggleSprintConfig extends Config {
         public int crosshairY;
         @ConfigGroup.Pop
         public ValidatedEnum<CrosshairIcons> crosshairIcon;
+        public ValidatedFloat rotation = ValidatedNumber.Companion.withIncrement(new ValidatedFloat(0f, 360f, -360f, ValidatedNumber.WidgetType.TEXTBOX_WITH_BUTTONS), 90f);
 
         @SuppressWarnings("unused")
         public ConfigGroup hotbar = new ConfigGroup("hotbar", true);
@@ -67,12 +71,15 @@ public class VisibleToggleSprintConfig extends Config {
 
     public enum IndicatorType {KEY_ONLY, STATE_ONLY, COMBINED}
 
+    @SuppressWarnings("unused")
     public enum CrosshairIcons {
-        STYLISED(0), MINIMAL_ONE(4), MINIMAL_TWO(8), MINIMAL_THREE(12);
-        public final int x;
+        SPRINT("sprint"), SNEAK("sneak"),
+        SPRINT_ALT("sprint_alt"), SNEAK_ALT("sneak_alt"),
+        TEST("test");
+        public final ResourceLocation id;
 
-        CrosshairIcons(int x) {
-            this.x = x;
+        CrosshairIcons(String name) {
+            this.id = id("hud/crosshair/" + name);
         }
     }
 }
