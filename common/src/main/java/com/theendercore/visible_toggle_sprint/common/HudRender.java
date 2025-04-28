@@ -4,15 +4,16 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 import com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig;
-import com.theendercore.visible_toggle_sprint.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
 
 import static com.theendercore.visible_toggle_sprint.VTSCommon.CONFIG;
 import static com.theendercore.visible_toggle_sprint.VTSConst.id;
+import static com.theendercore.visible_toggle_sprint.platform.Services.PLATFORM;
 
 public class HudRender {
     public static void renderHud(GuiGraphics gui) {
@@ -25,7 +26,7 @@ public class HudRender {
 
         boolean debug = !client.gui.getDebugOverlay().showDebugScreen();
 
-        if (Services.PLATFORM.isDevelopmentEnvironment())
+        if (PLATFORM.isDevelopmentEnvironment())
             client.player.displayClientMessage(Component.literal("Sprint : " + client.player.isSprinting() + ", Sneak: " + client.player.isCrouching()), true);
 
         if (client.gameMode != null && client.gameMode.getPlayerMode() == GameType.SPECTATOR) return;
@@ -58,7 +59,7 @@ public class HudRender {
                 gui.pose().rotateAround(Axis.ZN.rotationDegrees(state.rotation.get()), 2, 2, 0);
             }
             // render icon
-            gui.blitSprite(state.crosshairIcon.get().id,
+            gui.blitSprite(hud(state.crosshairIcon.get().toLowerCase()),
                     4, 4, 0, 0,
                     0, 0, 4, 4);
             RenderSystem.defaultBlendFunc();
@@ -72,5 +73,9 @@ public class HudRender {
         }
         if (debug && state.textEnable)
             gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint." + type), state.textX, state.textY, state.textColor.toInt(), true);
+    }
+
+    public static ResourceLocation hud(String name) {
+        return id("hud/crosshair/" + name);
     }
 }
