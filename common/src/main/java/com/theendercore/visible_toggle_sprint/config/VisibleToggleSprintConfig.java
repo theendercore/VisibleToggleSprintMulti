@@ -1,89 +1,78 @@
 package com.theendercore.visible_toggle_sprint.config;
 
 import me.fzzyhmstrs.fzzy_config.config.Config;
+import me.fzzyhmstrs.fzzy_config.config.ConfigGroup;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
-import me.fzzyhmstrs.fzzy_config.util.Walkable;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
+import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedEnum;
 
 import java.awt.*;
 
 import static com.theendercore.visible_toggle_sprint.VTSConst.MODID;
 import static com.theendercore.visible_toggle_sprint.VTSConst.id;
-import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.CrosshairData.CrosshairIcons.STYLISED;
-import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.IndicatorType;
 
 
 public class VisibleToggleSprintConfig extends Config {
-    public PlayerState sprint = new PlayerState(
-            new PlayerState.CrosshairData(true, -6, -6, STYLISED),
-            new PlayerState.DisplayData(false, 125, 18),
-            new PlayerState.TextData(false, 10, 10, new ValidatedColor(Color.WHITE, false)),
-            IndicatorType.STATE_ONLY
-    );
-
-    public PlayerState sneak = new PlayerState(
-            new PlayerState.CrosshairData(true, 1, 1, STYLISED),
-            new PlayerState.DisplayData(false, 147, 18),
-            new PlayerState.TextData(false, 10, 30, new ValidatedColor(Color.WHITE, false)),
-            IndicatorType.STATE_ONLY
-    );
-
     public VisibleToggleSprintConfig() {
         super(id(MODID));
     }
 
+    public PlayerState sprint = new PlayerState();
+    public PlayerState sneak = new PlayerState(true, 1, 1, CrosshairIcons.STYLISED, 147, 18, 10, 30, Color.WHITE);
+
     public static class PlayerState extends ConfigSection {
-        public CrosshairData crosshair;
-        public DisplayData hotbar;
-        public TextData text;
-        public IndicatorType indicator;
-
-        public PlayerState(CrosshairData crosshair, DisplayData hotbar, TextData text, IndicatorType indicator) {
-            this.crosshair = crosshair;
-            this.hotbar = hotbar;
-            this.text = text;
-            this.indicator = indicator;
+        public PlayerState() {
+            this(true, -6, -6, CrosshairIcons.STYLISED, 125, 18, 10, 10, Color.WHITE);
         }
 
-        public static class CrosshairData extends DisplayData {
-            public CrosshairIcons icon;
-
-            public CrosshairData(boolean e, int x, int y, CrosshairIcons i) {
-                super(e, x, y);
-                this.icon = i;
-            }
-
-            public enum CrosshairIcons {
-                STYLISED(0), MINIMAL_ONE(4), MINIMAL_TWO(8), MINIMAL_THREE(12);
-                public final int x;
-
-                CrosshairIcons(int x) {
-                    this.x = x;
-                }
-            }
+        public PlayerState(boolean cross, int crossX, int crossY, CrosshairIcons icon, int barX, int barY, int txtX, int txtY, Color color) {
+            super();
+            crosshairEnable = cross;
+            crosshairX = crossX;
+            crosshairY = crossY;
+            crosshairIcon = new ValidatedEnum<>(icon, ValidatedEnum.WidgetType.CYCLING);
+            hotbarX = barX;
+            hotbarY = barY;
+            textX = txtX;
+            textY = txtY;
+            textColor = new ValidatedColor(color, false);
         }
 
-        public static class TextData extends DisplayData {
-            public ValidatedColor color;
 
-            public TextData(boolean e, int x, int y, ValidatedColor c) {
-                super(e, x, y);
-                this.color = c;
-            }
+        @SuppressWarnings("unused")
+        public ConfigGroup crosshair = new ConfigGroup("crosshair");
+        public boolean crosshairEnable;
+        public int crosshairX;
+        public int crosshairY;
+        @ConfigGroup.Pop
+        public ValidatedEnum<CrosshairIcons> crosshairIcon;
+
+        @SuppressWarnings("unused")
+        public ConfigGroup hotbar = new ConfigGroup("hotbar", true);
+        public boolean hotbarEnable = false;
+        public int hotbarX;
+        @ConfigGroup.Pop
+        public int hotbarY;
+
+        @SuppressWarnings("unused")
+        public ConfigGroup text = new ConfigGroup("text", true);
+        public boolean textEnable = false;
+        public int textX;
+        public int textY;
+        @ConfigGroup.Pop
+        public ValidatedColor textColor;
+
+        public IndicatorType indicator = IndicatorType.STATE_ONLY;
+    }
+
+    public enum IndicatorType {KEY_ONLY, STATE_ONLY, COMBINED}
+
+    public enum CrosshairIcons {
+        STYLISED(0), MINIMAL_ONE(4), MINIMAL_TWO(8), MINIMAL_THREE(12);
+        public final int x;
+
+        CrosshairIcons(int x) {
+            this.x = x;
         }
-
-        public static class DisplayData implements Walkable {
-            public boolean enable;
-            public int x;
-            public int y;
-
-            public DisplayData(boolean e, int x, int y) {
-                this.enable = e;
-                this.x = x;
-                this.y = y;
-            }
-        }
-
-        public enum IndicatorType {KEY_ONLY, STATE_ONLY, COMBINED}
     }
 }

@@ -50,16 +50,16 @@ public class HudRender {
 
     public static void renderIndicator(VisibleToggleSprintConfig.PlayerState state, boolean debug, Minecraft client, Options options, GuiGraphics gui, int sWidth, int sHeight, String langKey) {
         assert client.player != null;
-        if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshair.enable) {
+        if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshairEnable) {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            gui.blit(MOD_ICONS, sWidth + state.crosshair.x, (sHeight / 2) + state.crosshair.y, state.crosshair.icon.x, 0, 4, 4);
+            gui.blit(MOD_ICONS, sWidth + state.crosshairX, (sHeight / 2) + state.crosshairY, state.crosshairIcon.get().x, 0, 4, 4);
             RenderSystem.defaultBlendFunc();
             RenderSystem.disableBlend();
         }
-        if (state.hotbar.enable)
-            gui.blit(MOD_ICONS, sWidth + state.hotbar.x, (sHeight - state.hotbar.y), 0, 16, 16, 16);
-        if (debug && state.text.enable)
-            gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint." + langKey), state.text.x, state.text.y, state.text.color.toInt(), true);
+        if (state.hotbarEnable)
+            gui.blit(MOD_ICONS, sWidth + state.hotbarX, (sHeight - state.hotbarY), 0, 16, 16, 16);
+        if (debug && state.textEnable)
+            gui.drawString(client.font, Component.translatable("hud.visible_toggle_sprint." + langKey), state.textX, state.textY, state.textColor.toInt(), true);
     }
 }
