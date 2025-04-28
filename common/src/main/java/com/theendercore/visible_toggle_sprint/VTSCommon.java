@@ -9,17 +9,17 @@ import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
-import static com.theendercore.visible_toggle_sprint.Constants.LOG;
-import static com.theendercore.visible_toggle_sprint.Constants.MODID;
+import static com.theendercore.visible_toggle_sprint.VTSConst.log;
+import static com.theendercore.visible_toggle_sprint.VTSConst.MODID;
 
-public class CommonClass {
+public class VTSCommon {
     public static final KeyMapping configButton = new KeyMapping("key.visible_toggle_sprint.desc", InputConstants.UNKNOWN.getValue(), "key.visible_toggle_sprint.category");
     public static final VisibleToggleSprintConfig CONFIG = ConfigApiJava.registerAndLoadConfig(VisibleToggleSprintConfig::new, RegisterType.CLIENT);
 
     public static void init() {
-        if (Services.PLATFORM.isModLoaded("visible_toggle_sprint")) LOG.info("I am my planting roots.");
+        log.info("Making every sprint visible.");
         Services.PLATFORM.renderHud(HudRender::renderHud);
-        Services.PLATFORM.registerKeyBinding(configButton, CommonClass::handleKeyBinds);
+        Services.PLATFORM.registerKeyBinding(configButton, VTSCommon::handleKeyBinds);
     }
 
     public static void handleKeyBinds(Minecraft client) {

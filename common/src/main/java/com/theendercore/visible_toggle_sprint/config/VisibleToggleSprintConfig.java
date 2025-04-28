@@ -7,8 +7,8 @@ import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
 
 import java.awt.*;
 
-import static com.theendercore.visible_toggle_sprint.Constants.MODID;
-import static com.theendercore.visible_toggle_sprint.Constants.id;
+import static com.theendercore.visible_toggle_sprint.VTSConst.MODID;
+import static com.theendercore.visible_toggle_sprint.VTSConst.id;
 import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.CrosshairData.CrosshairIcons.STYLISED;
 import static com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig.PlayerState.IndicatorType;
 

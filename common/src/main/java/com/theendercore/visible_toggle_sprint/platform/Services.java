@@ -1,6 +1,6 @@
 package com.theendercore.visible_toggle_sprint.platform;
 
-import com.theendercore.visible_toggle_sprint.Constants;
+import com.theendercore.visible_toggle_sprint.VTSConst;
 import com.theendercore.visible_toggle_sprint.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -24,7 +24,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        VTSConst.log.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }
