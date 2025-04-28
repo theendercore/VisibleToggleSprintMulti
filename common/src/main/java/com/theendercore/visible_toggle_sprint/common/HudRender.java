@@ -54,8 +54,9 @@ public class HudRender {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             // set the position
             gui.pose().translate((float) ((width - 4 + state.crosshairX) / 2), (float) ((height - 4 + state.crosshairY) / 2), 0f);
-            // get the right rotation
-            gui.pose().rotateAround(Axis.ZN.rotationDegrees(state.rotation.get()), 2, 2, 0);
+            if (state.rotation.get() != 0) { // get the right rotation
+                gui.pose().rotateAround(Axis.ZN.rotationDegrees(state.rotation.get()), 2, 2, 0);
+            }
             // render icon
             gui.blitSprite(state.crosshairIcon.get().id,
                     4, 4, 0, 0,
