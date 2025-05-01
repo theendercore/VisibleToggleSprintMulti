@@ -20,6 +20,7 @@ public class HudRender {
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
         Options options = client.options;
+        if (options.hideGui) return;
 
         int width = gui.guiWidth();
         int height = gui.guiHeight();
