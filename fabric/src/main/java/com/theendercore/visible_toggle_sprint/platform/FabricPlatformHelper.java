@@ -3,8 +3,8 @@ package com.theendercore.visible_toggle_sprint.platform;
 import com.theendercore.visible_toggle_sprint.platform.services.IPlatformHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public void renderHud(Consumer<GuiGraphics> renderer) {
-        HudLayerRegistrationCallback.EVENT.register((phase) -> phase.attachLayerAfter(IdentifiedLayer.CROSSHAIR, LAYER_ID, (c, d) -> renderer.accept(c)));
+        HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR, LAYER_ID, (c, d) -> renderer.accept(c));
     }
 
     @Override

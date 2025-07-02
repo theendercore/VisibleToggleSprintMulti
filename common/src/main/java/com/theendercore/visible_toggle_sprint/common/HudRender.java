@@ -1,11 +1,10 @@
 package com.theendercore.visible_toggle_sprint.common;
 
-import com.mojang.math.Axis;
 import com.theendercore.visible_toggle_sprint.config.VisibleToggleSprintConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
@@ -50,20 +49,20 @@ public class HudRender {
     public static void renderIndicator(VisibleToggleSprintConfig.PlayerState state, boolean debug, Minecraft client, Options options, GuiGraphics gui, int width, int height, String type) {
         assert client.player != null;
         if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshairEnable) {
-            gui.pose().pushPose();
+            gui.pose().pushMatrix();
             // set the position
-            gui.pose().translate((float) ((width - 4 + state.crosshairX) / 2), (float) ((height - 4 + state.crosshairY) / 2), 0f);
+            gui.pose().translate((float) ((width - 4 + state.crosshairX) / 2), (float) ((height - 4 + state.crosshairY) / 2));
             if (state.rotation.get() != 0) { // get the right rotation
-                gui.pose().rotateAround(Axis.ZN.rotationDegrees(state.rotation.get()), 2, 2, 0);
+                gui.pose().rotateAbout((float) (Math.PI / 180.0) * state.rotation.get(), 2, 2);
             }
             // render icon
-            gui.blitSprite(RenderType::crosshair, hud(state.crosshairIcon.get().toLowerCase()),
+            gui.blitSprite(RenderPipelines.CROSSHAIR, hud(state.crosshairIcon.get().toLowerCase()),
                     4, 4, 0, 0,
                     0, 0, 4, 4);
-            gui.pose().popPose();
+            gui.pose().popMatrix();
         }
         if (state.hotbarEnable) {
-            gui.blit(RenderType::guiTextured, id("hud/" + type),
+            gui.blit(RenderPipelines.GUI, id("hud/" + type),
                     16, 16, 0, 0,
                     (width / 2) + state.hotbarX, (height - state.hotbarY), 16, 16);
         }
