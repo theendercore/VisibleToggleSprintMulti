@@ -62,7 +62,7 @@ public class HudRender {
             gui.pose().popMatrix();
         }
         if (state.hotbarEnable) {
-            gui.blit(RenderPipelines.GUI, id("hud/" + type),
+            gui.blitSprite(RenderPipelines.GUI_TEXTURED, id("hud/" + type),
                     16, 16, 0, 0,
                     (width / 2) + state.hotbarX, (height - state.hotbarY), 16, 16);
         }
