@@ -12,6 +12,7 @@ import net.minecraft.world.level.GameType;
 import static com.theendercore.visible_toggle_sprint.VTSCommon.CONFIG;
 import static com.theendercore.visible_toggle_sprint.VTSConst.id;
 import static com.theendercore.visible_toggle_sprint.platform.Services.PLATFORM;
+import static net.minecraft.client.gui.components.debug.DebugScreenEntries.THREE_DIMENSIONAL_CROSSHAIR;
 
 public class HudRender {
     public static void renderHud(GuiGraphics gui) {
@@ -19,16 +20,15 @@ public class HudRender {
         if (client.player == null) return;
         Options options = client.options;
         if (options.hideGui) return;
+        if (client.gameMode != null && client.gameMode.getPlayerMode() == GameType.SPECTATOR) return;
+
+        if (PLATFORM.isDevelopmentEnvironment()) {
+            client.player.displayClientMessage(Component.literal("Sprint : " + client.player.isSprinting() + ", Sneak: " + client.player.isCrouching()), true);
+        }
 
         int width = gui.guiWidth();
         int height = gui.guiHeight();
-
-        boolean debug = !client.gui.getDebugOverlay().showDebugScreen();
-
-        if (PLATFORM.isDevelopmentEnvironment())
-            client.player.displayClientMessage(Component.literal("Sprint : " + client.player.isSprinting() + ", Sneak: " + client.player.isCrouching()), true);
-
-        if (client.gameMode != null && client.gameMode.getPlayerMode() == GameType.SPECTATOR) return;
+        boolean debug = !client.debugEntries.isF3Visible();
 
         if (shouldRender(CONFIG.sprint, options.keySprint.isDown(), client.player.isSprinting())) {
             renderIndicator(CONFIG.sprint, debug, client, options, gui, width, height, "sprint");
@@ -48,7 +48,8 @@ public class HudRender {
 
     public static void renderIndicator(VisibleToggleSprintConfig.PlayerState state, boolean debug, Minecraft client, Options options, GuiGraphics gui, int width, int height, String type) {
         assert client.player != null;
-        if ((debug || client.player.isReducedDebugInfo()) && options.getCameraType().isFirstPerson() && state.crosshairEnable) {
+        var widgetCrosshair = client.debugEntries.getCurrentlyEnabled().contains(THREE_DIMENSIONAL_CROSSHAIR);
+        if (!widgetCrosshair && options.getCameraType().isFirstPerson() && state.crosshairEnable) {
             gui.pose().pushMatrix();
             // set the position
             gui.pose().translate((float) ((width - 4 + state.crosshairX) / 2), (float) ((height - 4 + state.crosshairY) / 2));

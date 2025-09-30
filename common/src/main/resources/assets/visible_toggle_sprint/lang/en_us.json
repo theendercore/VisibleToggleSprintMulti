@@ -6,5 +6,5 @@
   "hud.visible_toggle_sprint.sneak" : "Sneaking",
 
   "key.visible_toggle_sprint.desc" : "Open VTS config",
-  "key.visible_toggle_sprint.category" : "Visible Toggle Sprint"
+  "key.category.visible_toggle_sprint.category" : "Visible Toggle Sprint"
 }

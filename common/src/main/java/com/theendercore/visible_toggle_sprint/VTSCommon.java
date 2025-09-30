@@ -9,11 +9,11 @@ import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
-import static com.theendercore.visible_toggle_sprint.VTSConst.log;
-import static com.theendercore.visible_toggle_sprint.VTSConst.MODID;
+import static com.theendercore.visible_toggle_sprint.VTSConst.*;
 
 public class VTSCommon {
-    public static final KeyMapping configButton = new KeyMapping("key.visible_toggle_sprint.desc", InputConstants.UNKNOWN.getValue(), "key.visible_toggle_sprint.category");
+    public static final KeyMapping.Category VTS_CATEGORY = KeyMapping.Category.register(id("category"));
+    public static final KeyMapping configButton = new KeyMapping("key.visible_toggle_sprint.desc", InputConstants.UNKNOWN.getValue(), VTS_CATEGORY);
     public static final VisibleToggleSprintConfig CONFIG = ConfigApiJava.registerAndLoadConfig(VisibleToggleSprintConfig::new, RegisterType.CLIENT);
 
     public static void init() {
